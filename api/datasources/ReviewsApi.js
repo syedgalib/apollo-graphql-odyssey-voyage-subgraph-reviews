@@ -1,4 +1,6 @@
-let {reviews} = require('./reviews_data.json');
+import path from 'path';
+import { readFileSync } from 'fs';
+const { reviews } = JSON.parse( readFileSync( path.resolve( process.cwd(), 'api/datasources/reviews_data.json' ), { encoding: 'utf8' } ) );
 
 class ReviewsAPI {
   getReview(id) {
@@ -29,4 +31,4 @@ class ReviewsAPI {
   }
 }
 
-module.exports = ReviewsAPI;
+export default ReviewsAPI;
