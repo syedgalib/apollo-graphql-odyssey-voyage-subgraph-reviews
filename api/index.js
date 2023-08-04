@@ -6,6 +6,7 @@ import cors from 'cors';
 import bodyParser from 'body-parser';
 
 import { ApolloServer } from '@apollo/server';
+import { buildSubgraphSchema } from '@apollo/subgraph';
 import { expressMiddleware } from '@apollo/server/express4';
 import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHttpServer';
 import gql from 'graphql-tag';
@@ -24,8 +25,7 @@ const httpServer = http.createServer( app );
 // Same ApolloServer initialization as before, plus the drain plugin
 // for our httpServer.
 const server = new ApolloServer({
-  typeDefs,
-  resolvers,
+  schema: buildSubgraphSchema({ typeDefs, resolvers }),
   plugins: [ ApolloServerPluginDrainHttpServer({ httpServer }) ],
   introspection: true,
 });
